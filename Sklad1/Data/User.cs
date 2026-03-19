@@ -1,13 +1,54 @@
-﻿namespace Sklad1.Data
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Sklad1.Data
 {
-    internal class User
+    /// <summary>
+    /// Модель пользователя
+    /// </summary>
+    [Table("users")]
+    public class User
     {
-        public int id { get; set; }
-        public string last_name { get; set; }
-        public string first_name { get; set; }
-        public string middle_name { get; set; }
-        public string email { get; set; }
-        public string password_hash { get; set; }
-        public string role { get; set; }
+        /// <summary>
+        /// Идентификатор пользователя
+        /// </summary>
+        [Column("id")]
+        public Guid Id { get; set; }
+
+        /// <summary>
+        /// Фамилия пользователя
+        /// </summary>
+        [Column("last_name")]
+        public string LastName { get; set; }
+
+        /// <summary>
+        /// Имя пользователя
+        /// </summary>
+        /// 
+        [Column("first_name")]
+        public string FirstName { get; set; }
+
+        /// <summary>
+        /// Отчество пользователя
+        /// </summary>
+        [Column("middle_name")]
+        public string MiddleName { get; set; }
+
+        /// <summary>
+        /// Почта (логин) пользователя
+        /// </summary>
+        [Column("email")]
+        public string Email { get; set; }
+
+        /// <summary>
+        /// Хэш пароля
+        /// </summary>
+        [Column("password_hash")]
+        public string PasswordHash { get; set; }
+
+        /// <summary>
+        /// Роль пользователя
+        /// </summary>
+        [Column("role")]
+        public UserRole Role { get; set; }
     }
 }

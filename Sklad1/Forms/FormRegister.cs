@@ -1,16 +1,12 @@
 ﻿using Sklad1.Data;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using Sklad1.Helpers;
+using Sklad1.Properties;
 
 namespace Sklad1.Forms
 {
+    /// <summary>
+    /// Форма регистрации нового пользователя
+    /// </summary>
     public partial class FormRegister : Form
     {
         public FormRegister()
@@ -23,18 +19,17 @@ namespace Sklad1.Forms
         {
             if (string.IsNullOrWhiteSpace(txtLastName.Text) ||
                 string.IsNullOrWhiteSpace(txtFirstName.Text) ||
-                string.IsNullOrWhiteSpace(txtMiddleName.Text) ||
                 string.IsNullOrWhiteSpace(txtEmail.Text) ||
                 string.IsNullOrWhiteSpace(txtPassword.Text) ||
                 string.IsNullOrWhiteSpace(txtConfirmPassword.Text))
             {
-                MessageBox.Show("Заполните все поля!");
+                MessageBox.Show(Properties.Resources.FillAllFields);
                 return;
             }
 
             if (txtPassword.Text != txtConfirmPassword.Text)
             {
-                MessageBox.Show("Пароли не совпадают!");
+                MessageBox.Show(Resources.PasswordsDontMatch);
                 return;
             }
 
@@ -42,46 +37,37 @@ namespace Sklad1.Forms
             {
                 using (var bd = new Context())
                 {
-                    bool emailExists = false;
-
-                    foreach (var u in bd.users)
+                    if (bd.Users.Any(u => u.Email == txtEmail.Text))
                     {
-                        if (u.email == txtEmail.Text)
-                        {
-                            emailExists = true;
-                            break;
-                        }
-                    }
-
-                    if (emailExists)
-                    {
-                        MessageBox.Show("Такой email уже есть!");
+                        MessageBox.Show(Resources.EmailExists);
                         return;
                     }
 
                     var newUser = new User
                     {
-                        last_name = txtLastName.Text,
-                        first_name = txtFirstName.Text,
-                        middle_name = txtMiddleName.Text,
-                        email = txtEmail.Text,
-                        password_hash = txtPassword.Text,
-                        role = "Кладовщик"
+                        Id = Guid.NewGuid(),
+                        LastName = txtLastName.Text,
+                        FirstName = txtFirstName.Text,
+                        MiddleName = txtMiddleName.Text,
+                        Email = txtEmail.Text,
+                        PasswordHash = Password.HashPassword(txtPassword.Text),
+                        Role = UserRole.Кладовщик
                     };
 
-                    bd.users.Add(newUser);
+                    bd.Users.Add(newUser);
                     bd.SaveChanges();
 
-                    MessageBox.Show("Регистрация прошла успешно!");
+                    MessageBox.Show(Resources.RegisterSuccess);
 
-                    FormLogin login = new FormLogin();
+                    var login = new FormLogin();
                     login.Show();
                     this.Close();
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex) 
             {
-                MessageBox.Show("Ошибка: " + ex.Message);
+                Logger.LogError("Ошибка при регистрации", ex);
+                MessageBox.Show(Resources.ErrorSystem);
             }
         }
     }

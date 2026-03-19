@@ -1,10 +1,35 @@
-﻿namespace Sklad1.Data
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Sklad1.Data
 {
-    internal class Shipment
+    /// <summary>
+    /// Модель отгрузки 
+    /// </summary>
+    [Table("shipments")]
+    public class Shipment
     {
-        public int id { get; set; }
-        public int user_id { get; set; }
-        public string client { get; set; }
-        public DateTime date { get; set; }
+        /// <summary>
+        /// Идентификатор отгрузки 
+        /// </summary>
+        [Column("id")]
+        public Guid Id { get; set; }
+
+        /// <summary>
+        /// Идентификатор пользователя, совершившего отгрузку
+        /// </summary>
+        [Column("user_id")]
+        public Guid UserId { get; set; }
+
+        /// <summary>
+        /// Клиент
+        /// </summary>
+        [Column("client")]
+        public string Client { get; set; }
+
+        /// <summary>
+        /// Дата отгрузки
+        /// </summary>
+        [Column("date")]
+        public DateTime Date { get; set; }
     }
 }

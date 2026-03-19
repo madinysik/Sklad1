@@ -1,12 +1,47 @@
-﻿namespace Sklad1.Data
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Sklad1.Data
 {
-    internal class Product
+    /// <summary>
+    /// Модель товаров
+    /// </summary>
+    [Table("products")]
+    public class Product
     {
-        public int id { get; set; }
-        public string article { get; set; }
-        public string name { get; set; }
-        public int category_id { get; set; }
-        public decimal purchase_price { get; set; }
-        public int quantity { get; set; }
+        /// <summary>
+        /// Идентифактор товара
+        /// </summary>
+        [Column("id")]
+        public Guid Id { get; set; }
+
+        /// <summary>
+        /// Артикул товара
+        /// </summary>
+        [Column("article")]
+        public string Article { get; set; }
+
+        /// <summary>
+        /// Название товара
+        /// </summary>
+        [Column("name")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Идентификатор категории
+        /// </summary>
+        [Column("category_id")]
+        public Guid CategoryId { get; set; }
+
+        /// <summary>
+        /// Цена закупки
+        /// </summary>
+        [Column("purchase_price")]
+        public decimal PurchasePrice { get; set; }
+
+        /// <summary>
+        /// Количество на складе
+        /// </summary>
+        [Column("quantity")]
+        public int Quantity { get; set; }
     }
 }

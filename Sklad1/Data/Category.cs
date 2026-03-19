@@ -1,9 +1,29 @@
-﻿namespace Sklad1.Data
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Sklad1.Data
 {
-    internal class Category
+    /// <summary>
+    /// Модель категории товаров
+    /// </summary>
+    [Table("categories")]
+    public class Category
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string description { get; set; }
+        /// <summary>
+        /// Идентификатор категории
+        /// </summary>
+        [Column("id")]
+        public Guid Id { get; set; }
+
+        /// <summary>
+        /// Название категории
+        /// </summary>
+        [Column("name")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Описание категории
+        /// </summary>
+        [Column("description")]
+        public string Description { get; set; }
     }
 }

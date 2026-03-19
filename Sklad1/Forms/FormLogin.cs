@@ -1,16 +1,20 @@
 using Sklad1.Data;
 using Sklad1.Forms;
+using Sklad1.Helpers;
+using Sklad1.Properties;
 
 namespace Sklad1
 {
+    /// <summary>
+    /// Форма входа
+    /// </summary>
     public partial class FormLogin : Form
     {
         public FormLogin()
         {
             InitializeComponent();
             btnLogin.Click += BtnLogin_Click;
-            lnkRegister.Click += new EventHandler(lnkRegister_Click);
-
+            lnkRegister.Click += lnkRegister_Click;
         }
 
         private void lnkRegister_Click(object sender, EventArgs e)
@@ -18,44 +22,40 @@ namespace Sklad1
             new FormRegister().Show();
             this.Hide();
         }
+
         private void BtnLogin_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtEmail.Text) ||
                 string.IsNullOrWhiteSpace(txtPassword.Text))
             {
-                MessageBox.Show("Введите email и пароль!");
+                MessageBox.Show(Resources.EnterEmailAndPassword);
                 return;
             }
-
             try
             {
                 using (var bd = new Context())
                 {
-                    User user = null;
-                    foreach (var u in bd.users)
-                    {
-                        if (u.email == txtEmail.Text && u.password_hash == txtPassword.Text)
-                        {
-                            user = u;
-                            break;
-                        }
-                    }
+                    var user = bd.Users.FirstOrDefault(u =>
+                        u.Email == txtEmail.Text &&
+                        u.PasswordHash == Password.HashPassword(txtPassword.Text));
+
                     if (user == null)
                     {
-                        MessageBox.Show("Неверный email или пароль!");
+                        MessageBox.Show(Resources.WrongEmailOrPassword);
                         return;
                     }
 
-                    FormMain.UserRole = user.role;
+                    FormMain.UserRole = user.Role;
 
-                    FormMain mainForm = new FormMain();
+                    var mainForm = new FormMain();
                     mainForm.Show();
                     this.Hide();
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка: {ex.Message}");
+                Logger.LogError($"Ошибка при входе", ex);
+                MessageBox.Show(Resources.ErrorSystem);
             }
         }
     }

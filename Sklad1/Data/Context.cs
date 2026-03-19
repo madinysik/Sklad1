@@ -1,17 +1,41 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Sklad1.Data
 {
-    internal class Context : DbContext
+    /// <summary>
+    /// Контекст базы данных для работы с PostgreSQL
+    /// </summary>
+    public class Context : DbContext
     {
-        public DbSet<User> users { get; set; }
-        public DbSet<Category> categories { get; set; }
-        public DbSet<Product> products { get; set; }
-        public DbSet<Shipment> shipments { get; set; }
+        /// <summary>
+        /// Таблица пользователей
+        /// </summary>
+        public DbSet<User> Users { get; set; }
+
+        /// <summary>
+        /// Таблица категорий товаров
+        /// </summary>
+        public DbSet<Category> Categories { get; set; }
+
+        /// <summary>
+        /// Таблица товаров
+        /// </summary>
+        public DbSet<Product> Products { get; set; }
+
+        /// <summary>
+        /// Таблица отгрузок
+        /// </summary>
+        public DbSet<Shipment> Shipments { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseNpgsql("Host=localhost;Database=Sklad_BD;Username=postgres;Password=admin123");
+        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().Property(u => u.Role).HasConversion<string>(); 
         }
     }
 }
