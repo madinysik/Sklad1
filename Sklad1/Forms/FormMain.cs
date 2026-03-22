@@ -21,6 +21,8 @@ namespace Sklad1.Forms
             var displayRole = UserRole == UserRole.Admin ? Resources.Admin : Resources.Storekeeper;
             this.Text = string.Format(Resources.Title, displayRole);
             LoadProducts();
+            btnCreate.Click += btnCreate_Click;
+            btnEdit.Click += btnEdit_Click;
 
             if (!IsAdmin())
             {
@@ -69,12 +71,75 @@ namespace Sklad1.Forms
                     dgvProducts.Columns["Quantity"].HeaderText = Resources.Quantity;
                     dgvProducts.Columns["PurchasePrice"].HeaderText = Resources.PurchasePrice;
                     dgvProducts.Columns["Stock"].HeaderText = Resources.Stock;
+
+
                 }
             }
             catch (Exception ex)
             {
                 Log.Error(ex, "Ошибка загрузки товаров");
                 MessageBox.Show(Resources.ProductLoadError);
+            }
+        }
+
+        private void btnCreate_Click(object sender, EventArgs e)
+        {
+            CreateMenu.Show(btnCreate, 0, btnCreate.Height);
+        }
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            EditMenu.Show(btnEdit, 0, btnEdit.Height);
+        }
+
+        // меню создать 
+        private void menuCategory_Click(object sender, EventArgs e)
+        {
+            var form = new FormCategory();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                LoadProducts();
+            }
+        }
+
+        private void menuProduct_Click(object sender, EventArgs e)
+        {
+            var form = new FormProduct();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                LoadProducts();
+            }
+        }
+        private void menuShipment_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        // меню редактировать
+        private void menuEditProduct_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void menuEditCategory_Click(object sender, EventArgs e)
+        {
+            var selectedRow = dgvProducts.SelectedRows[0];
+            var categoryName = selectedRow.Cells["Category"].Value.ToString();
+
+            using (var bd = new Context())
+            {
+                var category = bd.Categories.FirstOrDefault(c => c.Name == categoryName);
+
+                if (category == null)
+                {
+                    MessageBox.Show(Resources.CategoryNotFound);
+                    return;
+                }
+
+                var form = new FormEditCategory(category);
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    LoadProducts();
+                }
+
             }
         }
     }

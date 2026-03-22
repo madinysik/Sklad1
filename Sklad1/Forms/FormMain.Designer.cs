@@ -87,18 +87,21 @@
             menuProduct.Name = "menuProduct";
             menuProduct.Size = new Size(130, 22);
             menuProduct.Text = "Товар";
+            menuProduct.Click += menuProduct_Click;
             // 
             // menuCategory
             // 
             menuCategory.Name = "menuCategory";
             menuCategory.Size = new Size(130, 22);
             menuCategory.Text = "Категория";
+            menuCategory.Text += menuCategory_Click;
             // 
             // menuShipment
             // 
             menuShipment.Name = "menuShipment";
             menuShipment.Size = new Size(130, 22);
             menuShipment.Text = "Отгрузка";
+            menuShipment.Text += menuShipment_Click;
             // 
             // btnEdit
             // 
@@ -122,12 +125,14 @@
             menuEditProduct.Name = "menuEditProduct";
             menuEditProduct.Size = new Size(130, 22);
             menuEditProduct.Text = "Товар";
+            menuEditProduct.Text += menuEditProduct_Click;
             // 
             // menuEditCategory
             // 
             menuEditCategory.Name = "menuEditCategory";
             menuEditCategory.Size = new Size(130, 22);
             menuEditCategory.Text = "Категория";
+            menuEditCategory.Text += menuEditCategory_Click;
             // 
             // btnDelete
             // 
