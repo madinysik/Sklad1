@@ -1,16 +1,32 @@
 ﻿using Serilog;
 using Sklad1.Data;
-using Sklad1.Helpers;
 using Sklad1.Properties;
 using System.Text.RegularExpressions;
 
-namespace Sklad1.Forms
+namespace Sklad1
 {
-    public partial class FormProduct : Form
+    /// <summary>
+    /// Форма редактирования товара
+    /// </summary>
+    public partial class FormEditProduct : Form
     {
-        public FormProduct()
+        private Guid _productId;
+
+        public FormEditProduct(Product product)
         {
             InitializeComponent();
+
+            _productId = product.Id;
+            txtArticle.Text = product.Article;
+            txtName.Text = product.Name;
+
+            using (var bd = new Context())
+            {
+                var category = bd.Categories.Find(product.CategoryId);
+                txtCategory.Text = category?.Name ?? string.Empty;
+            }
+
+            txtPurchasePrice.Text = product.PurchasePrice.ToString();
 
             btnSave.Click += BtnSave_Click;
             btnCancel.Click += btnCancel_Click;
@@ -30,7 +46,7 @@ namespace Sklad1.Forms
         private bool IsValidArticle(string text)
         {
             var trimmed = text.Trim();
-            return Regex.IsMatch(trimmed, @"^[0-9\s\-]+$");
+            return Regex.IsMatch(trimmed, @"^[а-яА-ЯёЁa-zA-Z0-9\-]+$");
         }
 
         private void BtnSave_Click(object sender, EventArgs e)
@@ -39,13 +55,11 @@ namespace Sklad1.Forms
             var name = txtName.Text.Trim();
             var categoryName = txtCategory.Text.Trim();
             var priceText = txtPurchasePrice.Text.Trim();
-            var quantityText = txtQuantity.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(article) ||
                 string.IsNullOrWhiteSpace(name) ||
                 string.IsNullOrWhiteSpace(categoryName) ||
-                string.IsNullOrWhiteSpace(priceText) ||
-                string.IsNullOrWhiteSpace(quantityText))
+                string.IsNullOrWhiteSpace(priceText))
             {
                 MessageBox.Show(Resources.FillAllFields);
                 return;
@@ -75,57 +89,49 @@ namespace Sklad1.Forms
                 return;
             }
 
-            if (!int.TryParse(quantityText, out int quantity) || quantity <= 0)
-            {
-                MessageBox.Show(Resources.InvalidQuantity);
-                return;
-            }
-
             try
             {
                 using (var bd = new Context())
                 {
-                    if (bd.Products.Any(p => p.Article == article))
+                    if (bd.Products.Any(p => p.Article == article && p.Id != _productId))
                     {
                         MessageBox.Show(Resources.ArticleExists);
                         return;
                     }
 
-                    if (bd.Products.Any(p => p.Name == name))
+                    if (bd.Products.Any(p => p.Name == name && p.Id != _productId))
                     {
-                        MessageBox.Show(Resources.ProductExists);
+                        MessageBox.Show(Resources.ProductNameExists);
                         return;
                     }
 
                     var category = bd.Categories.FirstOrDefault(c => c.Name == categoryName);
+
                     if (category == null)
                     {
                         MessageBox.Show(Resources.CategoryNotFound);
                         return;
                     }
 
-                    var product = new Product
+                    var product = bd.Products.Find(_productId);
+
+                    if (product != null)
                     {
-                        Id = Guid.NewGuid(),
-                        Article = article,
-                        Name = name,
-                        CategoryId = category.Id,
-                        PurchasePrice = price,
-                        InitialQuantity = quantity,
-                        Quantity = quantity
-                    };
+                        product.Article = article;
+                        product.Name = name;
+                        product.CategoryId = category.Id;
+                        product.PurchasePrice = price;
+                        bd.SaveChanges();
 
-                    bd.Products.Add(product);
-                    bd.SaveChanges();
-
-                    MessageBox.Show(Resources.ProductCreate);
-                    DialogResult = DialogResult.OK;
-                    Close();
+                        MessageBox.Show(Resources.ProductEdit);
+                        DialogResult = DialogResult.OK;
+                        Close();
+                    }
                 }
             }
             catch (Exception ex)
             {
-                Log.Error(ex, Resources.ErrorCreateProduct);
+                Log.Error(ex, Resources.ErrorEditProduct);
                 MessageBox.Show(Resources.ErrorSystem);
             }
         }

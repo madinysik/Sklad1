@@ -57,6 +57,7 @@
             dgvProducts.AllowUserToDeleteRows = false;
             dgvProducts.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvProducts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvProducts.BackgroundColor = Color.White;
             dgvProducts.Location = new Point(0, 37);
             dgvProducts.MultiSelect = false;
             dgvProducts.Name = "dgvProducts";
@@ -94,14 +95,13 @@
             menuCategory.Name = "menuCategory";
             menuCategory.Size = new Size(130, 22);
             menuCategory.Text = "Категория";
-            menuCategory.Text += menuCategory_Click;
+            menuCategory.Click += menuCategory_Click;
             // 
             // menuShipment
             // 
             menuShipment.Name = "menuShipment";
             menuShipment.Size = new Size(130, 22);
             menuShipment.Text = "Отгрузка";
-            menuShipment.Text += menuShipment_Click;
             // 
             // btnEdit
             // 
@@ -125,14 +125,13 @@
             menuEditProduct.Name = "menuEditProduct";
             menuEditProduct.Size = new Size(130, 22);
             menuEditProduct.Text = "Товар";
-            menuEditProduct.Text += menuEditProduct_Click;
             // 
             // menuEditCategory
             // 
             menuEditCategory.Name = "menuEditCategory";
             menuEditCategory.Size = new Size(130, 22);
             menuEditCategory.Text = "Категория";
-            menuEditCategory.Text += menuEditCategory_Click;
+            menuEditCategory.Click += menuEditCategory_Click;
             // 
             // btnDelete
             // 
@@ -181,6 +180,7 @@
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI Black", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 204);
             label1.Location = new Point(360, 9);
@@ -195,11 +195,11 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(900, 600);
             Controls.Add(panel2);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
-            MaximizeBox = false;
             Name = "FormMain";
+            RightToLeftLayout = true;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Список товаров";
+            WindowState = FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)dgvProducts).EndInit();
             CreateMenu.ResumeLayout(false);
             EditMenu.ResumeLayout(false);

@@ -1,7 +1,8 @@
-﻿using Sklad1.Data;
-using Sklad1.Properties;
+﻿using Serilog;
+using Sklad1.Data;
 using Sklad1.Helpers;
-using Serilog;
+using Sklad1.Properties;
+using System.Text.RegularExpressions;
 
 namespace Sklad1.Forms
 {
@@ -11,6 +12,7 @@ namespace Sklad1.Forms
     public partial class FormEditCategory : Form
     {
         private Guid _categoryId;
+
         public FormEditCategory(Category category)
         {
             InitializeComponent();
@@ -22,15 +24,32 @@ namespace Sklad1.Forms
             btnUpdate.Click += BtnUpdate_Click;
             btnCancel.Click += btnCancel_Click;
         }
+
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
         }
+
+        private bool IsValidName(string name)
+        {
+            var trimmed = name.Trim();
+            return Regex.IsMatch(trimmed, @"^[а-яА-ЯёЁa-zA-Z\s\-]+$");
+        }
+
         private void BtnUpdate_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtName.Text))
+            var name = txtName.Text.Trim();
+            var description = txtDescription.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(name))
             {
                 MessageBox.Show(Resources.EnterCategoryName);
+                return;
+            }
+
+            if (!IsValidName(name))
+            {
+                MessageBox.Show(Resources.InvalidCategoryName);
                 return;
             }
 
@@ -38,17 +57,18 @@ namespace Sklad1.Forms
             {
                 using (var bd = new Context())
                 {
-                    if (bd.Categories.Any(c => c.Name == txtName.Text && c.Id != _categoryId))
+                    if (bd.Categories.Any(c => c.Name == name && c.Id != _categoryId))
                     {
                         MessageBox.Show(Resources.CategoryExists);
                         return;
                     }
 
                     var category = bd.Categories.Find(_categoryId);
+
                     if (category != null)
                     {
-                        category.Name = txtName.Text;
-                        category.Description = txtDescription.Text;
+                        category.Name = name;
+                        category.Description = description;
                         bd.SaveChanges();
 
                         MessageBox.Show(Resources.CategoryEdit);
@@ -60,7 +80,7 @@ namespace Sklad1.Forms
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Ошибка при редактировании категории {CategoryId}", _categoryId);
+                Log.Error(ex, Resources.ErrorEditCategory);
                 MessageBox.Show(Resources.ErrorSystem);
             }
         }

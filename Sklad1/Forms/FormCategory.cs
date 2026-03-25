@@ -1,7 +1,7 @@
-﻿using Sklad1.Data;
+﻿using Serilog;
+using Sklad1.Data;
 using Sklad1.Properties;
-using Sklad1.Helpers;
-using Serilog;
+using System.Text.RegularExpressions;
 
 namespace Sklad1.Forms
 {
@@ -13,34 +13,54 @@ namespace Sklad1.Forms
         public FormCategory()
         {
             InitializeComponent();
+
             btnCreate.Click += BtnCreate_Click;
             btnCancel.Click += BtnCancel_Click;
         }
+
         private void BtnCancel_Click(object sender, EventArgs e)
         {
             Close();
         }
+
+        private bool IsValidName(string name)
+        {
+            var trimmed = name.Trim();
+            return Regex.IsMatch(trimmed, @"^[а-яА-ЯёЁa-zA-Z\s\-]+$");
+        }
+
         private void BtnCreate_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtName.Text))
+            var name = txtName.Text.Trim();
+            var description = txtDescription.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(name))
             {
                 MessageBox.Show(Resources.EnterCategoryName);
                 return;
             }
+
+            if (!IsValidName(name))
+            {
+                MessageBox.Show(Resources.InvalidCategoryName);
+                return;
+            }
+
             try
             {
                 using (var bd = new Context())
                 {
-                    if (bd.Categories.Any(c => c.Name == txtName.Text))
+                    if (bd.Categories.Any(c => c.Name == name))
                     {
                         MessageBox.Show(Resources.CategoryExists);
                         return;
                     }
+
                     var category = new Category
                     {
                         Id = Guid.NewGuid(),
-                        Name = txtName.Text,
-                        Description = txtDescription.Text
+                        Name = name,
+                        Description = description
                     };
 
                     bd.Categories.Add(category);
@@ -54,7 +74,7 @@ namespace Sklad1.Forms
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Ошибка при создании категории {CategoryName}", txtName.Text);
+                Log.Error(ex, Resources.ErrorCreatingCategory);
                 MessageBox.Show(Resources.ErrorSystem);
             }
         }

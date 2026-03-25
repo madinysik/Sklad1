@@ -47,16 +47,18 @@
             // 
             // lblTitle
             // 
+            lblTitle.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             lblTitle.AutoSize = true;
-            lblTitle.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            lblTitle.Location = new Point(262, 9);
+            lblTitle.Font = new Font("Microsoft Sans Serif", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            lblTitle.Location = new Point(240, 9);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(203, 29);
+            lblTitle.Size = new Size(242, 33);
             lblTitle.TabIndex = 0;
             lblTitle.Text = "РЕГИСТРАЦИЯ";
             // 
             // txtLastName
             // 
+            txtLastName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtLastName.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
             txtLastName.ForeColor = SystemColors.WindowText;
             txtLastName.Location = new Point(230, 73);
@@ -67,6 +69,7 @@
             // 
             // txtFirstName
             // 
+            txtFirstName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtFirstName.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
             txtFirstName.Location = new Point(230, 133);
             txtFirstName.Margin = new Padding(3, 2, 3, 2);
@@ -76,6 +79,7 @@
             // 
             // txtMiddleName
             // 
+            txtMiddleName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtMiddleName.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
             txtMiddleName.Location = new Point(230, 193);
             txtMiddleName.Margin = new Padding(3, 2, 3, 2);
@@ -85,6 +89,7 @@
             // 
             // label4
             // 
+            label4.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 204);
             label4.Location = new Point(230, 234);
@@ -95,6 +100,7 @@
             // 
             // txtEmail
             // 
+            txtEmail.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtEmail.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
             txtEmail.Location = new Point(230, 255);
             txtEmail.Margin = new Padding(3, 2, 3, 2);
@@ -104,6 +110,7 @@
             // 
             // label5
             // 
+            label5.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 204);
             label5.Location = new Point(230, 294);
@@ -114,6 +121,7 @@
             // 
             // txtPassword
             // 
+            txtPassword.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtPassword.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
             txtPassword.Location = new Point(230, 315);
             txtPassword.Margin = new Padding(3, 2, 3, 2);
@@ -124,6 +132,7 @@
             // 
             // label6
             // 
+            label6.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 204);
             label6.Location = new Point(230, 354);
@@ -134,6 +143,7 @@
             // 
             // txtConfirmPassword
             // 
+            txtConfirmPassword.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtConfirmPassword.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
             txtConfirmPassword.Location = new Point(230, 375);
             txtConfirmPassword.Margin = new Padding(3, 2, 3, 2);
@@ -144,6 +154,7 @@
             // 
             // btnRegister
             // 
+            btnRegister.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             btnRegister.BackColor = SystemColors.ActiveCaption;
             btnRegister.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
             btnRegister.Location = new Point(296, 419);
@@ -166,6 +177,7 @@
             // 
             // lblFirstName
             // 
+            lblFirstName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             lblFirstName.AutoSize = true;
             lblFirstName.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
             lblFirstName.Location = new Point(230, 54);
@@ -176,6 +188,7 @@
             // 
             // label2
             // 
+            label2.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
             label2.Location = new Point(230, 114);
@@ -186,6 +199,7 @@
             // 
             // label3
             // 
+            label3.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
             label3.Location = new Point(230, 174);
@@ -214,12 +228,11 @@
             Controls.Add(txtFirstName);
             Controls.Add(txtLastName);
             Controls.Add(lblTitle);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(3, 2, 3, 2);
-            MaximizeBox = false;
             Name = "FormRegister";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Регистрация";
+            WindowState = FormWindowState.Maximized;
             ResumeLayout(false);
             PerformLayout();
         }

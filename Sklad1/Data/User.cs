@@ -23,7 +23,6 @@ namespace Sklad1.Data
         /// <summary>
         /// Имя пользователя
         /// </summary>
-        /// 
         [Column("first_name")]
         public string FirstName { get; set; }
 
