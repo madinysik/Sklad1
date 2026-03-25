@@ -16,6 +16,7 @@ namespace Sklad1
         public FormLogin()
         {
             InitializeComponent();
+
             btnLogin.Click += BtnLogin_Click;
             lnkRegister.Click += lnkRegister_Click;
         }
@@ -37,6 +38,8 @@ namespace Sklad1
             FindUser();
 
         }
+
+        //проверки 
         private bool FieldsFilled()
         {
             if (string.IsNullOrWhiteSpace(txtEmail.Text) ||
@@ -51,14 +54,22 @@ namespace Sklad1
 
         private bool IsValidEmail(string email)
         {
+            var trimmed = email.Trim();
+
+            if (trimmed.Contains(" "))
+            {
+                MessageBox.Show(Resources.InvalidEmail);
+                return false;
+            }
+
             try
             {
                 var addr = new MailAddress(email.Trim());
                 return addr.Address == email.Trim();
             }
-            catch(Exception ex) 
-            {
-                Log.Warning(ex, "Невалидный email при попытке входа: {Email}", email);
+
+            catch(Exception ex)
+            { 
                 MessageBox.Show(Resources.InvalidEmail);
                 return false;
             }
@@ -76,9 +87,15 @@ namespace Sklad1
 
                     if (user == null)
                     {
-                        MessageBox.Show(Resources.UserNotFound);
+                        MessageBox.Show(Resources.InvalidCredentials);
                         return;
                     }
+
+                    CurrentUser.Id = user.Id;
+                    CurrentUser.FirstName = user.FirstName;
+                    CurrentUser.LastName = user.LastName;
+                    CurrentUser.Email = user.Email;
+                    CurrentUser.Role = user.Role;
 
                     FormMain.UserRole = user.Role;
 
@@ -89,7 +106,7 @@ namespace Sklad1
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Ошибка при входе пользователя {Email}", txtEmail.Text);
+                Log.Error(ex, Resources.ErrorLogin);
                 MessageBox.Show(Resources.ErrorSystem);
             }
         }

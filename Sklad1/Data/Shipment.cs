@@ -31,5 +31,10 @@ namespace Sklad1.Data
         /// </summary>
         [Column("date")]
         public DateTime Date { get; set; }
+
+        /// <summary>
+        /// Коллекция позиций отгрузок для этого товара
+        /// </summary>
+        public virtual ICollection<ShipmentItem> ShipmentItems { get; set; }
     }
 }

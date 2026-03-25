@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace Sklad1.Data
 {
@@ -29,6 +27,11 @@ namespace Sklad1.Data
         /// </summary>
         public DbSet<Shipment> Shipments { get; set; }
 
+        /// <summary>
+        /// Таблица позиций отгрузок
+        /// </summary>
+        public DbSet<ShipmentItem> ShipmentItems { get; set; }
+       
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseNpgsql("Host=localhost;Database=Sklad_BD;Username=postgres;Password=admin123");
