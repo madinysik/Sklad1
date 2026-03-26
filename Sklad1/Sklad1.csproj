@@ -10,8 +10,11 @@
 
   <ItemGroup>
     <Compile Remove="bin\**" />
+    <Compile Remove="Новая папка\**" />
     <EmbeddedResource Remove="bin\**" />
+    <EmbeddedResource Remove="Новая папка\**" />
     <None Remove="bin\**" />
+    <None Remove="Новая папка\**" />
   </ItemGroup>
 
   <ItemGroup>

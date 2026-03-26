@@ -41,17 +41,18 @@
             // 
             // lblTitle
             // 
-            lblTitle.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            lblTitle.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             lblTitle.AutoSize = true;
-            lblTitle.Font = new Font("Microsoft Sans Serif", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            lblTitle.Location = new Point(318, 44);
+            lblTitle.Font = new Font("Segoe UI", 27.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 204);
+            lblTitle.Location = new Point(290, 33);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(85, 29);
+            lblTitle.Size = new Size(126, 50);
             lblTitle.TabIndex = 0;
             lblTitle.Text = "ВХОД";
             // 
             // txtPassword
             // 
+            txtPassword.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtPassword.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
             txtPassword.Location = new Point(234, 225);
             txtPassword.Margin = new Padding(3, 2, 3, 2);
@@ -62,6 +63,7 @@
             // 
             // txtEmail
             // 
+            txtEmail.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtEmail.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
             txtEmail.Location = new Point(234, 144);
             txtEmail.Margin = new Padding(3, 2, 3, 2);
@@ -71,21 +73,22 @@
             // 
             // btnLogin
             // 
+            btnLogin.Anchor = AnchorStyles.Bottom;
             btnLogin.BackColor = SystemColors.ActiveCaption;
             btnLogin.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            btnLogin.Location = new Point(302, 334);
+            btnLogin.Location = new Point(302, 324);
             btnLogin.Margin = new Padding(3, 2, 3, 2);
             btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(115, 46);
+            btnLogin.Size = new Size(115, 56);
             btnLogin.TabIndex = 2;
             btnLogin.Text = "Вход";
             btnLogin.UseVisualStyleBackColor = false;
             // 
             // lnkRegister
             // 
-            lnkRegister.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            lnkRegister.Anchor = AnchorStyles.Bottom;
             lnkRegister.AutoSize = true;
-            lnkRegister.Location = new Point(344, 395);
+            lnkRegister.Location = new Point(353, 410);
             lnkRegister.Name = "lnkRegister";
             lnkRegister.Size = new Size(122, 15);
             lnkRegister.TabIndex = 3;
@@ -104,6 +107,7 @@
             // 
             // lblPassword
             // 
+            lblPassword.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             lblPassword.AutoSize = true;
             lblPassword.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 204);
             lblPassword.Location = new Point(234, 204);
@@ -114,6 +118,7 @@
             // 
             // lblEmail
             // 
+            lblEmail.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             lblEmail.AutoSize = true;
             lblEmail.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 204);
             lblEmail.Location = new Point(234, 123);
@@ -124,12 +129,13 @@
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Bottom;
             label1.AutoSize = true;
-            label1.Location = new Point(247, 395);
+            label1.Location = new Point(250, 410);
             label1.Name = "label1";
-            label1.Size = new Size(102, 15);
+            label1.Size = new Size(107, 15);
             label1.TabIndex = 8;
-            label1.Text = "Еще не аккаунта?";
+            label1.Text = "Еще нет аккаунта?";
             // 
             // FormLogin
             // 
@@ -145,12 +151,11 @@
             Controls.Add(lblPassword);
             Controls.Add(lblEmail);
             Controls.Add(lblTitle);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(3, 2, 3, 2);
-            MaximizeBox = false;
             Name = "FormLogin";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Вход";
+            WindowState = FormWindowState.Maximized;
             ResumeLayout(false);
             PerformLayout();
         }

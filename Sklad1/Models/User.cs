@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Sklad1.Data;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Sklad1.Data
+namespace Sklad1.Models
 {
     /// <summary>
     /// Модель пользователя
@@ -23,7 +24,6 @@ namespace Sklad1.Data
         /// <summary>
         /// Имя пользователя
         /// </summary>
-        /// 
         [Column("first_name")]
         public string FirstName { get; set; }
 

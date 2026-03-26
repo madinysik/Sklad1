@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Sklad1.Data
+namespace Sklad1.Models
 {
     /// <summary>
     /// Модель товаров
@@ -43,5 +43,16 @@ namespace Sklad1.Data
         /// </summary>
         [Column("quantity")]
         public int Quantity { get; set; }
+
+        /// <summary>
+        /// Начальное количество при поступлении
+        /// </summary>
+        [Column("initial_quantity")]
+        public int InitialQuantity { get; set; }
+
+        /// <summary>
+        /// Коллекция позиций отгрузок для этого товара
+        /// </summary>
+        public virtual ICollection<ShipmentItem> ShipmentItems { get; set; }
     }
 }

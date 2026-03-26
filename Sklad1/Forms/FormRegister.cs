@@ -4,6 +4,7 @@ using Sklad1.Helpers;
 using Sklad1.Properties;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
+using Sklad1.Models;
 
 namespace Sklad1.Forms
 {
@@ -15,55 +16,9 @@ namespace Sklad1.Forms
         public FormRegister()
         {
             InitializeComponent();
+
             btnRegister.Click += BtnRegister_Click;
         }
-
-        private bool IsValidName(string name)
-        {
-            var trimmed = name.Trim();
-            return Regex.IsMatch(trimmed, @"^[а-яА-ЯёЁa-zA-Z\-]{2,50}$");
-        }
-
-        private bool IsValidEmail(string email)
-        {
-            try
-            {
-                var addr = new MailAddress(email.Trim());
-                return addr.Address == email.Trim();
-            }
-            catch
-            {
-                return false;
-            }
-        }
-        /// <summary>
-        /// В цикле мы делаем проверку на эмодзи 
-        /// </summary>
-        /// <param name="password"></param>
-        /// <returns></returns>
-        private bool IsValidPassword(string password)
-        {
-            var trimmed = password.Trim();
-
-            if (trimmed.Length < 6 || trimmed.Length > 50)
-                return false;
-
-            if (trimmed.Contains(" "))
-                return false;
-            
-            foreach (char c in trimmed)
-            {
-                if ((c >= 0x1F300 && c <= 0x1F6FF) ||
-                    (c >= 0x2600 && c <= 0x26FF) ||
-                    (c >= 0x2700 && c <= 0x27BF))
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
 
         private void BtnRegister_Click(object sender, EventArgs e)
         {
@@ -95,19 +50,16 @@ namespace Sklad1.Forms
         {
             if (!IsValidName(txtLastName.Text))
             {
-                MessageBox.Show(Resources.InvalidLastName);
                 return false;
             }
 
             if (!IsValidName(txtFirstName.Text))
             {
-                MessageBox.Show(Resources.InvalidFirstName);
                 return false;
             }
 
             if (!string.IsNullOrWhiteSpace(txtMiddleName.Text) && !IsValidName(txtMiddleName.Text))
             {
-                MessageBox.Show(Resources.InvalidMiddleName);
                 return false;
             }
 
@@ -119,7 +71,6 @@ namespace Sklad1.Forms
 
             if (!IsValidPassword(txtPassword.Text))
             {
-                MessageBox.Show(Resources.InvalidPassword);
                 return false;
             }
 
@@ -132,13 +83,98 @@ namespace Sklad1.Forms
             return true;
         }
 
+        private bool IsValidName(string name)
+        {
+            var trimmed = name.Trim();
+
+            if (trimmed.Length < 2 || trimmed.Length > 50)
+            {
+                MessageBox.Show(Resources.NameLengthError);
+                return false;
+            }
+
+            if (trimmed.Contains(" "))
+            {
+                MessageBox.Show(Resources.NameHasSpaces);
+                return false;
+            }
+
+            if (!Regex.IsMatch(trimmed, @"^[а-яА-ЯёЁa-zA-Z\-]+$"))
+            {
+                MessageBox.Show(Resources.InvalidFullName);
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            var trimmed = email.Trim();
+
+            if (trimmed.Length < 5 || trimmed.Length > 50)
+            {
+                MessageBox.Show(Resources.EmailLengthError);
+                return false;
+            }
+
+            if (trimmed.Contains(" "))
+            {
+                MessageBox.Show(Resources.InvalidEmail);
+                return false;
+            }
+
+            try
+            {
+                var addr = new MailAddress(trimmed);
+
+                if (addr.Address != trimmed)
+                    return false;
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private bool IsValidPassword(string password)
+        {
+            var trimmed = password.Trim();
+
+            if (trimmed.Contains(" "))
+            {
+                MessageBox.Show(Resources.PasswordHasSpaces);
+                return false;
+            }
+
+            if (trimmed.Length < 6 || trimmed.Length > 50)
+            {
+                MessageBox.Show(Resources.InvalidPasswordLength);
+                return false;
+            }
+
+            if (Regex.IsMatch(trimmed, @"[\p{So}]"))
+            {
+                MessageBox.Show(Resources.InvalidPassword);
+                return false;
+            }
+
+            return true;
+        }
+
         private void SaveUser()
         {
             try
             {
+                var email = txtEmail.Text.Trim().ToLower();
+                var lastName = txtLastName.Text.Trim();
+                var firstName = txtFirstName.Text.Trim();
+                var middleName = string.IsNullOrWhiteSpace(txtMiddleName.Text) ? string.Empty : txtMiddleName.Text.Trim();
+
                 using (var bd = new Context())
                 {
-                    if (bd.Users.Any(u => u.Email.ToLower() == txtEmail.Text.Trim().ToLower()))
+                    if (bd.Users.Any(u => u.Email == email))
                     {
                         MessageBox.Show(Resources.EmailExists);
                         return;
@@ -147,10 +183,10 @@ namespace Sklad1.Forms
                     var newUser = new User
                     {
                         Id = Guid.NewGuid(),
-                        LastName = txtLastName.Text.Trim(),
-                        FirstName = txtFirstName.Text.Trim(),
-                        MiddleName = string.IsNullOrWhiteSpace(txtMiddleName.Text) ? string.Empty : txtMiddleName.Text.Trim(),
-                        Email = txtEmail.Text.Trim().ToLower(),
+                        LastName = lastName,
+                        FirstName = firstName,
+                        MiddleName = middleName,
+                        Email = email,
                         PasswordHash = Password.HashPassword(txtPassword.Text),
                         Role = UserRole.Storekeeper
                     };
@@ -159,13 +195,14 @@ namespace Sklad1.Forms
                     bd.SaveChanges();
 
                     MessageBox.Show(Resources.RegisterSuccess);
-                    new FormLogin().Show();
+                    var loginForm = new FormLogin();
+                    loginForm.Show();
                     Close();
                 }
             }
             catch (Exception ex)
             {
-                Log.Error(ex, "Ошибка при регистрации пользователя {Email}", txtEmail.Text);
+                Log.Error(ex, Resources.ErrorRegister);
                 MessageBox.Show(Resources.ErrorSystem);
             }
         }
