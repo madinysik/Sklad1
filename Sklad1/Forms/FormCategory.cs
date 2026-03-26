@@ -2,6 +2,7 @@
 using Sklad1.Data;
 using Sklad1.Properties;
 using System.Text.RegularExpressions;
+using Sklad1.Models;
 
 namespace Sklad1.Forms
 {

@@ -27,10 +27,10 @@ namespace Sklad1.Forms
                         {
                             si.Shipment.Date,
                             si.Shipment.Client,
-                            ProductName = si.Product.Name,
+                            ProductName = si.Product != null ? si.Product.Name : "Товар удален",
                             si.Quantity,
                             si.PriceAtShipment,
-                            CurrentStock = si.Product.Quantity
+                            CurrentStock = si.Product != null ? si.Product.Quantity : 0
                         })
                         .ToList();
 

@@ -49,16 +49,18 @@
             // 
             // lblTitle
             // 
+            lblTitle.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             lblTitle.AutoSize = true;
-            lblTitle.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            lblTitle.Location = new Point(246, 42);
+            lblTitle.Font = new Font("Segoe UI", 24F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 204);
+            lblTitle.Location = new Point(197, 28);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(224, 32);
+            lblTitle.Size = new Size(326, 45);
             lblTitle.TabIndex = 0;
             lblTitle.Text = "Категория товара";
             // 
             // txtName
             // 
+            txtName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtName.Location = new Point(219, 153);
             txtName.Name = "txtName";
             txtName.Size = new Size(284, 23);
@@ -66,6 +68,7 @@
             // 
             // txtDescription
             // 
+            txtDescription.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtDescription.Location = new Point(219, 233);
             txtDescription.Multiline = true;
             txtDescription.Name = "txtDescription";
@@ -74,6 +77,7 @@
             // 
             // lblName
             // 
+            lblName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             lblName.AutoSize = true;
             lblName.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
             lblName.Location = new Point(219, 133);
@@ -84,6 +88,7 @@
             // 
             // lblDescription
             // 
+            lblDescription.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             lblDescription.AutoSize = true;
             lblDescription.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
             lblDescription.Location = new Point(219, 213);
@@ -94,9 +99,10 @@
             // 
             // btnCreate
             // 
+            btnCreate.Anchor = AnchorStyles.Bottom;
             btnCreate.BackColor = SystemColors.ActiveCaption;
             btnCreate.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            btnCreate.Location = new Point(231, 366);
+            btnCreate.Location = new Point(229, 366);
             btnCreate.Name = "btnCreate";
             btnCreate.Size = new Size(109, 42);
             btnCreate.TabIndex = 5;
@@ -105,6 +111,7 @@
             // 
             // btnCancel
             // 
+            btnCancel.Anchor = AnchorStyles.Bottom;
             btnCancel.BackColor = SystemColors.ActiveCaption;
             btnCancel.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
             btnCancel.Location = new Point(378, 366);

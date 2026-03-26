@@ -219,6 +219,9 @@
   <data name="InvalidCategoryName" xml:space="preserve">
     <value>Ошибка в названии категории</value>
   </data>
+  <data name="InvalidClientName" xml:space="preserve">
+    <value>Название получателя содержит недопустимые символы.</value>
+  </data>
   <data name="InvalidCredentials" xml:space="preserve">
     <value>Неверный email или пароль!</value>
   </data>

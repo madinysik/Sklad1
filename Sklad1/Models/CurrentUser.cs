@@ -1,7 +1,7 @@
 ﻿using Sklad1.Data;
 using System;
 
-namespace Sklad1.Helpers
+namespace Sklad1.Models
 {
     /// <summary>
     /// Хранит данные текущего вошедшего пользователя

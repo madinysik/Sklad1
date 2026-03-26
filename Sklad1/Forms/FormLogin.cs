@@ -2,6 +2,7 @@ using Serilog;
 using Sklad1.Data;
 using Sklad1.Forms;
 using Sklad1.Helpers;
+using Sklad1.Models;
 using Sklad1.Properties;
 using System.Net.Mail;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;

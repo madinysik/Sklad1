@@ -24,5 +24,10 @@
         /// Цена товара на момент отгрузки
         /// </summary>
         public decimal Price { get; set; }
+
+        /// <summary>
+        /// Получатель
+        /// </summary>
+        public string Client { get; set; }
     }
 }

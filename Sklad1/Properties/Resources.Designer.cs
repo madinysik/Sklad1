@@ -367,6 +367,15 @@ namespace Sklad1.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Название получателя содержит недопустимые символы..
+        /// </summary>
+        internal static string InvalidClientName {
+            get {
+                return ResourceManager.GetString("InvalidClientName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Неверный email или пароль!.
         /// </summary>
         internal static string InvalidCredentials {

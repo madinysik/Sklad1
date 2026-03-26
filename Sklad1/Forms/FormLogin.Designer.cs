@@ -43,10 +43,10 @@
             // 
             lblTitle.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             lblTitle.AutoSize = true;
-            lblTitle.Font = new Font("Microsoft Sans Serif", 26.25F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            lblTitle.Location = new Point(302, 46);
+            lblTitle.Font = new Font("Segoe UI", 27.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 204);
+            lblTitle.Location = new Point(290, 33);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(121, 39);
+            lblTitle.Size = new Size(126, 50);
             lblTitle.TabIndex = 0;
             lblTitle.Text = "ВХОД";
             // 
@@ -73,7 +73,7 @@
             // 
             // btnLogin
             // 
-            btnLogin.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            btnLogin.Anchor = AnchorStyles.Bottom;
             btnLogin.BackColor = SystemColors.ActiveCaption;
             btnLogin.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
             btnLogin.Location = new Point(302, 324);
@@ -88,7 +88,7 @@
             // 
             lnkRegister.Anchor = AnchorStyles.Bottom;
             lnkRegister.AutoSize = true;
-            lnkRegister.Location = new Point(347, 410);
+            lnkRegister.Location = new Point(353, 410);
             lnkRegister.Name = "lnkRegister";
             lnkRegister.Size = new Size(122, 15);
             lnkRegister.TabIndex = 3;
@@ -133,9 +133,9 @@
             label1.AutoSize = true;
             label1.Location = new Point(250, 410);
             label1.Name = "label1";
-            label1.Size = new Size(102, 15);
+            label1.Size = new Size(107, 15);
             label1.TabIndex = 8;
-            label1.Text = "Еще не аккаунта?";
+            label1.Text = "Еще нет аккаунта?";
             // 
             // FormLogin
             // 

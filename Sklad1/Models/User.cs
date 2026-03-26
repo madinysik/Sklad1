@@ -1,6 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Sklad1.Data;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Sklad1.Data
+namespace Sklad1.Models
 {
     /// <summary>
     /// Модель пользователя

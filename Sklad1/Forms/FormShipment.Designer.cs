@@ -208,7 +208,6 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Отгрузка";
             WindowState = FormWindowState.Maximized;
-            Load += FormShipment_Load;
             ((System.ComponentModel.ISupportInitialize)dgvItems).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();

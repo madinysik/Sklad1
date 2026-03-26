@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Sklad1.Models;
 
 namespace Sklad1.Data
 {

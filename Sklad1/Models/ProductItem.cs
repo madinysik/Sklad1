@@ -1,4 +1,4 @@
-﻿namespace Sklad1.Helpers
+﻿namespace Sklad1.Models
 {
     /// <summary>
     /// Модель товара для выпадающего списка в форме отгрузки

@@ -55,16 +55,18 @@
             // 
             // lblTitle
             // 
+            lblTitle.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             lblTitle.AutoSize = true;
-            lblTitle.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            lblTitle.Location = new Point(246, 31);
+            lblTitle.Font = new Font("Segoe UI", 24F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 204);
+            lblTitle.Location = new Point(211, 9);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(215, 32);
+            lblTitle.Size = new Size(297, 45);
             lblTitle.TabIndex = 1;
             lblTitle.Text = "Создание товара";
             // 
             // lblArticle
             // 
+            lblArticle.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             lblArticle.AutoSize = true;
             lblArticle.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
             lblArticle.Location = new Point(219, 83);
@@ -75,6 +77,7 @@
             // 
             // lblName
             // 
+            lblName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             lblName.AutoSize = true;
             lblName.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
             lblName.Location = new Point(219, 139);
@@ -85,6 +88,7 @@
             // 
             // lblCategory
             // 
+            lblCategory.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             lblCategory.AutoSize = true;
             lblCategory.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
             lblCategory.Location = new Point(219, 198);
@@ -95,6 +99,7 @@
             // 
             // lblPurchasePrice
             // 
+            lblPurchasePrice.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             lblPurchasePrice.AutoSize = true;
             lblPurchasePrice.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
             lblPurchasePrice.Location = new Point(219, 258);
@@ -105,6 +110,7 @@
             // 
             // txtArticle
             // 
+            txtArticle.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtArticle.Location = new Point(219, 103);
             txtArticle.Name = "txtArticle";
             txtArticle.Size = new Size(284, 23);
@@ -112,6 +118,7 @@
             // 
             // txtName
             // 
+            txtName.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtName.Location = new Point(219, 159);
             txtName.Name = "txtName";
             txtName.Size = new Size(284, 23);
@@ -119,6 +126,7 @@
             // 
             // txtPurchasePrice
             // 
+            txtPurchasePrice.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtPurchasePrice.Location = new Point(219, 278);
             txtPurchasePrice.Name = "txtPurchasePrice";
             txtPurchasePrice.Size = new Size(284, 23);
@@ -126,6 +134,7 @@
             // 
             // btnSave
             // 
+            btnSave.Anchor = AnchorStyles.Bottom;
             btnSave.BackColor = SystemColors.ActiveCaption;
             btnSave.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
             btnSave.Location = new Point(230, 400);
@@ -137,6 +146,7 @@
             // 
             // btnCancel
             // 
+            btnCancel.Anchor = AnchorStyles.Bottom;
             btnCancel.BackColor = SystemColors.ActiveCaption;
             btnCancel.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 204);
             btnCancel.Location = new Point(370, 400);
@@ -148,6 +158,7 @@
             // 
             // txtCategory
             // 
+            txtCategory.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtCategory.Location = new Point(219, 218);
             txtCategory.Name = "txtCategory";
             txtCategory.Size = new Size(284, 23);
@@ -155,6 +166,7 @@
             // 
             // lblQuantity
             // 
+            lblQuantity.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             lblQuantity.AutoSize = true;
             lblQuantity.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 204);
             lblQuantity.Location = new Point(219, 321);
@@ -165,6 +177,7 @@
             // 
             // txtQuantity
             // 
+            txtQuantity.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             txtQuantity.Location = new Point(219, 341);
             txtQuantity.Name = "txtQuantity";
             txtQuantity.Size = new Size(284, 23);

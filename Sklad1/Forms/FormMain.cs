@@ -182,12 +182,7 @@ namespace Sklad1.Forms
                        .Include(p => p.ShipmentItems).FirstOrDefault(p => p.Article == article);
 
                         if (product != null)
-                        {
-                            if (product.ShipmentItems != null && product.ShipmentItems.Any())
-                            {
-                                bd.ShipmentItems.RemoveRange(product.ShipmentItems);
-                            }
-
+                        { 
                             bd.Products.Remove(product);
                             bd.SaveChanges();
 

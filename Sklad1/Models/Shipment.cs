@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Sklad1.Models;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Sklad1.Data
 {

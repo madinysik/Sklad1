@@ -1,5 +1,6 @@
 ﻿using Sklad1.Data;
 using Serilog;
+using Sklad1.Models;
 
 namespace Sklad1.Helpers
 {

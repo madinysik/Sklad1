@@ -1,5 +1,6 @@
 ﻿using Sklad1.Data;
 using Sklad1.Helpers;
+using Sklad1.Models;
 using Sklad1.Properties;
 
 namespace Sklad1.Forms
@@ -45,6 +46,9 @@ namespace Sklad1.Forms
 
         private void BtnAdd_Click(object sender, EventArgs e)
         {
+            if (!ValidateClient())
+                return;
+
             if (!ValidateSelection())
                 return;
 
@@ -79,12 +83,15 @@ namespace Sklad1.Forms
 
         private void AddOrUpdateItem(ProductItem selected, int quantity)
         {
-            var existing = _items.FirstOrDefault(i => i.Article == selected.Article);
+            var currentClient = txtClient.Text.Trim();
+
+            var existing = _items.FirstOrDefault(i => i.Article == selected.Article && i.Client == currentClient);
 
             if (existing != null)
-            {
+            { 
                 existing.Quantity += quantity;
             }
+
             else
             {
                 _items.Add(new ShipmentItemTemp
@@ -92,7 +99,8 @@ namespace Sklad1.Forms
                     Article = selected.Article,
                     Name = selected.Name,
                     Quantity = quantity,
-                    Price = selected.PurchasePrice
+                    Price = selected.PurchasePrice,
+                    Client = currentClient
                 });
             }
         }
@@ -106,31 +114,30 @@ namespace Sklad1.Forms
             dgvItems.Columns[nameof(ShipmentItemTemp.Name)].HeaderText = Resources.Name;
             dgvItems.Columns[nameof(ShipmentItemTemp.Quantity)].HeaderText = Resources.Quantity;
             dgvItems.Columns[nameof(ShipmentItemTemp.Price)].HeaderText = Resources.Price;
+            dgvItems.Columns[nameof(ShipmentItemTemp.Client)].HeaderText = Resources.Client;
 
             btnShip.Enabled = _items.Count > 0;
         }
 
         private void BtnShip_Click(object sender, EventArgs e)
-        {
-            if (!ValidateClient())
-                return;
-
+        { 
             if (!ValidateItems())
                 return;
 
-            var itemsForShipment = _items.Select(i => (i.Article, i.Quantity)).ToList();
-            bool success = ShipmentService.ProcessShipment(txtClient.Text.Trim(), itemsForShipment);
+            foreach (var group in _items.GroupBy(i => i.Client))
+            {
+                var itemsForShipment = group.Select(i => (i.Article, i.Quantity)).ToList();
 
-            if (success)
-            {
-                MessageBox.Show(Resources.ShipmentSuccess);
-                DialogResult = DialogResult.OK;
-                Close();
+                if (!ShipmentService.ProcessShipment(group.Key, itemsForShipment))
+                {
+                    MessageBox.Show(Resources.ShipmentError);
+                    return;
+                }
             }
-            else
-            {
-                MessageBox.Show(Resources.ShipmentError);
-            }
+
+            MessageBox.Show(Resources.ShipmentSuccess);
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
         private bool ValidateClient()
@@ -141,6 +148,16 @@ namespace Sklad1.Forms
                 txtClient.Focus();
                 return false;
             }
+
+            var client = txtClient.Text.Trim();
+
+            if (!System.Text.RegularExpressions.Regex.IsMatch(client, @"^[а-яА-ЯёЁa-zA-Z0-9\s\-\.]+$"))
+            {
+                MessageBox.Show(Resources.InvalidClientName);
+                txtClient.Focus();
+                return false;
+            }
+
             return true;
         }
 
@@ -152,11 +169,6 @@ namespace Sklad1.Forms
                 return false;
             }
             return true;
-        }
-
-        private void FormShipment_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

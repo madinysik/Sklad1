@@ -4,6 +4,7 @@ using Sklad1.Helpers;
 using Sklad1.Properties;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
+using Sklad1.Models;
 
 namespace Sklad1.Forms
 {
